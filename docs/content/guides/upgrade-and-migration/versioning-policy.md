@@ -17,7 +17,7 @@ Handsontable follows the principles of [Semantic Versioning](https://semver.org/
 
 [[toc]]
 
-## Overview
+## Stable releases
 
 We use the version format of X.Y.Z (Major.Minor.Patch), incrementing them when a certain type of change occurs to the code.
 
@@ -51,3 +51,16 @@ Up to Handsontable 8.3.2, the JavaScript variant and the React variant of Handso
 
 Starting with version 8.4.0 (released in May 2021), both the JavaScript variant and the React variant of Handsontable have the same version number.
 :::
+
+## Development releases
+
+As part of the development process, we publish automated development releases to npm. Such releases might be used to preview upcoming changes, but they are not considered stable or supported. The behavior might change before a stable release.
+
+The version number of the development releases follows the [SemVer](https://semver.org/) guidelines for pre-release versions. It appears in the following format: `Major.Minor.Patch-Label-Commit-Date`, where:
+
+- `Major.Minor.Patch` - Equals the anticipated stable release number (e.g., `12.3.0`) when the build is published from the release branch shortly before a stable release. Equals `0.0.0` for builds published from any branch during the regular development cycle. 
+- `Label` - The category of the development release. Currently, only `next` is used.
+- `Commit` - A short Git SHA that identifies the code commit.
+- `Date` - The build date.
+
+An example of a development release version number: `0.0.0-next-cf775b4-20221222`.

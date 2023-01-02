@@ -32,7 +32,7 @@ To run the Jasmine tests in your browser, go to the following pages:
 * **<YOUR\_LOCALHOST\_ADDRESS>/test/MobileRunner.html** - Handsontable mobile test suite
 * **<YOUR\_LOCALHOST\_ADDRESS>/src/3rdparty/walkontable/test/SpecRunner.html** - Walkontable test suite
 
-## Test with NPM (CLI)
+## Test with NPM run scripts (CLI)
 
 To run Jasmine tests in your command line (using Puppeteer), first install all necessary dependencies by executing `npm install`. After the `NPM` finishes fetching required modules, your workspace is ready to test.
 
