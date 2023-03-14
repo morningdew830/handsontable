@@ -5,6 +5,10 @@ import { Writable } from 'stream';
 import { command as execaCommand } from 'execa';
 import debounce from 'lodash.debounce';
 
+import {
+  displayErrorMessage,
+} from '../../../scripts/utils/index.mjs';
+
 const argv = yargs(hideBin(process.argv))
   .array('cmdToListen')
   .string('runnerFile')
@@ -14,11 +18,19 @@ const argv = yargs(hideBin(process.argv))
 const PUPPETEER_CMD = 'node test/scripts/run-puppeteer.mjs';
 const PUPPETEER_KILL_TIMEOUT = 2000;
 const writableStream = new Writable();
+const runnerFile = argv.runnerFile;
 let targetProcess = null;
+const allowedTestPaths = ['src/3rdparty/walkontable/test/SpecRunner.html', 'test/E2ERunner.html']
+
+if (allowedTestPaths.includes(runnerFile) === false) {
+  displayErrorMessage(`Test running failed. Add runner file (${runnerFile}) to "allow list" (protection against Indirect Command Injection vulnerability)`);
+
+  process.exit(1);
+}
 
 const spawnPuppeteer = debounce(() => {
-  console.log(`${PUPPETEER_CMD} ${argv.runnerFile}`);
-  targetProcess = execaCommand(`${PUPPETEER_CMD} ${argv.runnerFile}`, {
+  console.log(`${PUPPETEER_CMD} ${runnerFile}`);
+  targetProcess = execaCommand(`${PUPPETEER_CMD} ${runnerFile}`, {
     stdin: 'ignore',
   });
 

@@ -14,9 +14,16 @@ const argv = yargs(hideBin(process.argv))
   .alias('exclude', 'e')
   .argv;
 const modifier = process.env.COMMAND_ENV;
+const [command] = argv._;
 
 if (argv._.length === 0) {
   displayErrorMessage(`No arguments were provided for the 'npm run ${modifier}' command.`);
+
+  process.exit(1);
+}
+
+if (typeof command === 'string' && /^[a-zA-Z\-_:]+$/.test(command) === false) {
+  displayErrorMessage(`Argument should be simple, one-word string (protection against Indirect Command Injection vulnerability).`);
 
   process.exit(1);
 }
@@ -40,7 +47,6 @@ switch (modifier) {
     break;
   }
   case 'all': {
-    const [command] = argv._;
     // eslint-disable-next-line prefer-template
     let workspacesCommandList = '-w ' + [
       'handsontable',

@@ -6,14 +6,22 @@ import fse from 'fs-extra';
 import path from 'path';
 import {
   displayConfirmationMessage,
-  displayWarningMessage
+  displayWarningMessage,
+  displayErrorMessage,
 } from './utils/console.mjs';
 
+const supportedPackages = ['handsontable', '@handsontable/react', '@handsontable/angular', '@handsontable/vue'];
 let [pkgName] = process.argv.slice(2);
 
 if (pkgName) {
   // remove version from package name (e.g. @handsontable/angular-13 -> @handsontable/angular)
   pkgName = pkgName.replace(/-\d+/, '');
+}
+
+if (supportedPackages.includes(pkgName) === false) {
+  displayErrorMessage(`Cannot create symlink for unsupported package (protection against Path Traversal vulnerability).`);
+
+  process.exit(1);
 }
 
 const PACKAGE_LOCATIONS = new Map([

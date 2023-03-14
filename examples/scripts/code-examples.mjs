@@ -101,8 +101,8 @@ const runNpmCommandInExample = (exampleDir, command) => {
 
 // EXECUTE SCRIPTS
 
-if (!hotVersion) {
-  displayErrorMessage('You must provide the version of the Handsontable as the last parameter to the script.');
+if (/^(\d+\.){2}\d+(-beta\.\d+)?$/.test(hotVersion) === false) {
+  displayErrorMessage('You must provide proper version of the Handsontable as the last parameter to the script.');
 
   process.exit(1);
 }
